@@ -3,7 +3,7 @@ name: Deploy to cloudflare
 on:
   push:
     branches:
-      - main  # 배포하려는 브랜치에 맞게 수정
+      - master
 
 jobs:
   deploy:
