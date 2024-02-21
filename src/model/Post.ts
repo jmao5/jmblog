@@ -13,5 +13,4 @@ export default interface Post {
   toonSummary: string;
   days: string;
   activedCount: number;
-  
 }
