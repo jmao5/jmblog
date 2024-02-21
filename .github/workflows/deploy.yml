@@ -24,4 +24,4 @@ jobs:
         run: |
           npm run pages:deploy
         env:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
