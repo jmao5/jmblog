@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
     - name: Install dependencies
       run: npm install
