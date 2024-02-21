@@ -1,25 +1,28 @@
 ---
 import { Image } from "astro:assets";
 import FormattedDate from "./FormattedDate.astro";
-import type { CollectionEntry } from "astro:content";
-
-type Props = {
-  post: CollectionEntry<"blog">;
-  class?: string;
-};
 
 const {
-  post: {data: { cover, title, date }},
+  post: { imagePath2, title, updateDate },
 } = Astro.props;
+
+function convertToDate(arr: [number, number, number]): Date {
+  return new Date(arr[0], arr[1] - 1, arr[2]); // 월은 0부터 시작하므로 -1 해줍니다.
+}
+const date = convertToDate(updateDate);
 ---
 
-<div class="relative h-[200px] overflow-hidden bg-primary-50 dark:bg-opacity-10 rounded-lg" class:list={Astro.props.class}>
+<div
+  class="relative h-[200px] overflow-hidden bg-primary-50 dark:bg-opacity-10 rounded-lg"
+  class:list={Astro.props.class}
+>
   {
-    cover && (
+    imagePath2 && (
       <Image
-        src={cover}
+        src={imagePath2}
         alt={title}
-        widths={[300, 600, 1000]}
+        width={1}
+        height={1}
         sizes="(max-width: 767px) 100vw, 300px"
         class="object-cover absolute inset-0 w-full h-full z-0"
       />

@@ -4,13 +4,13 @@
  * A few of these are not used yet, and are subject to change, example of this is Author.
  */
 export const SITE_METADATA = {
-  title: "Astro Starter Blog",
-  headerTitle: "Astro Starter Blog",
+  title: "SangHyemyLog",
+  headerTitle: "SangHyemyLog",
   description: "A blog created with Astro and Tailwind.css",
-  language: "en-US",
+  language: "ko-KR",
   theme: "system", // Options: system, light, dark
-  siteUrl: "https://tasb.yon.fun/",
-  siteRepo: "https://github.com/wanoo21/tailwind-astro-starting-blog",
+  siteUrl: "https://jmblog.pages.dev/",
+  siteRepo: "https://github.com/jmao5",
   robots: "index, follow", // Options: index, noindex, follow, nofollow
 
   pages: {
