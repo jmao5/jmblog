@@ -17,11 +17,16 @@ jobs:
         with:
           node-version: '18' # Node.js 버전을 18로 설정합니다.
 
+      - name: Configure Wrangler
+        run: |
+          wrangler config
+          wrangler whoami # 이 명령은 프로젝트 이름을 출력합니다.
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
       - name: Install dependencies
         run: npm install
 
       - name: Build and deploy
         run: |
           npm run pages:deploy
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
