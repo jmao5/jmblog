@@ -54,13 +54,13 @@ const articleOgDetails = {
           </dl>
           <PageTitle>{post.title}</PageTitle>
         </div>
-        <!-- {
-          post.cover && (
+        {
+          post.imagePath && (
             <div class="space-y-1 pb-10 text-center dark:border-gray-700">
               <PostCover {post} />
             </div>
           )
-        } -->
+        }
         <div class="pb-10 text-center border-b border-gray-200">
           <p>{post.toonSummary}</p>
         </div>
