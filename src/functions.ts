@@ -27,3 +27,7 @@ export const excludeDrafts = ({data}: CollectionEntry<'blog'>): boolean => {
     // Usually this should be like this - import.meta.env.PROD ? !data.draft : true; but for the purpose of the demo, we are displaying drafts as well
     return import.meta.env.PROD ? true : true;
 }
+
+export const convertToDate = (arr: [number, number, number]): Date  => {
+return new Date(arr[0], arr[1] - 1, arr[2]); // 월은 0부터 시작하므로 -1 해줍니다.
+}

@@ -32,7 +32,7 @@ const posts: Post[] = response.data;
       {!posts.length && "No posts found."}
       {
         posts.map((post) => {
-          const { title, toonSummary, genre: tags, toonNum } = post;
+          const { title, toonSummary, genre: tags, id } = post;
           return (
             <li class="py-12">
               <article>
@@ -43,7 +43,7 @@ const posts: Post[] = response.data;
                       <div>
                         <h2 class="text-2xl font-bold leading-8 tracking-tight">
                           <Link
-                            href={`/blog/${toonNum}`}
+                            href={`/blog/${id}`}
                             class="text-gray-900 dark:text-gray-100"
                           >
                             {title}
@@ -61,7 +61,7 @@ const posts: Post[] = response.data;
                     </div>
                     <div class="text-base font-medium leading-6">
                       <Link
-                        href={`/blog/${toonNum}`}
+                        href={`/blog/${id}`}
                         class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                         aria-label={`Read "${title}"`}
                       >

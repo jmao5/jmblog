@@ -7,36 +7,36 @@ import { type CollectionEntry, getEntries } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import ScrollTopAndComments from "@/solid/ScrollTopAndComments.tsx";
 import PostCover from "../components/PostCover.astro";
+import axios from "axios";
+import { convertToDate } from "@/functions";
 
 interface Props {
-  post: CollectionEntry<"blog">;
-  next?: CollectionEntry<"blog">;
-  prev?: CollectionEntry<"blog">;
+  id: number;
 }
 
-const { post, next, prev } = Astro.props as Props;
-const authors: CollectionEntry<"authors">[] = await getEntries(
-  post.data.authors
-);
-const tags: CollectionEntry<"tags">[] = await getEntries(post.data.tags);
-// const related: CollectionEntry<'blog'>[] = await getEntries(post.data.related);
+const data = Astro.props as Props;
+console.log("data :", data);
 
+const response = await axios.get("http://sso.tplinkdns.com:9050/searchToon", {
+  params: {
+    id: data.id,
+  },
+});
+const post = response.data;
+console.log(post);
 const articleOgDetails = {
-  publishedTime: post.data.date,
-  modifiedTime: post.data.lastmod,
-  authors: authors.map(({ data }) => data.name),
-  authorTwitter: authors.map(({ data }) => data.twitter).at(0),
-  tags: tags.map(({ data }) => data.name),
-  cover: post.data.cover,
+  publishedTime: new Date(),
+  modifiedTime: new Date(),
+  authors: post.genre.split("/"),
+  authorTwitter: "테스트",
+  tags: post.genre.split("/"),
+  cover: post.imagePath,
 };
-
-// TODO: Later add support for headings
-const { Content, headings } = await post.render();
 ---
 
 <RootLayout
-  title={post.data.title}
-  description={post.data.summary}
+  title={post.title}
+  description={post.toonSummary}
   article={articleOgDetails}
 >
   <SectionContainer>
@@ -49,27 +49,27 @@ const { Content, headings } = await post.render();
             <dd
               class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400"
             >
-              <FormattedDate date={post.data.date} />
+              <FormattedDate date={convertToDate(post.updateDate)} />
             </dd>
           </dl>
-          <PageTitle>{post.data.title}</PageTitle>
+          <PageTitle>{post.title}</PageTitle>
         </div>
-        {
-          post.data.cover && (
+        <!-- {
+          post.cover && (
             <div class="space-y-1 pb-10 text-center dark:border-gray-700">
               <PostCover {post} />
             </div>
           )
-        }
+        } -->
         <div class="pb-10 text-center border-b border-gray-200">
-          <p>{post.data.summary}</p>
+          <p>{post.toonSummary}</p>
         </div>
       </header>
       <div
         class="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:divide-y-0"
       >
         {
-          post.data.draft && (
+          post.draft && (
             <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 dark:bg-yellow-500 dark:border-yellow-300 mt-10">
               <p class="leading-5 text-yellow-700 dark:text-yellow-300">
                 This is a draft. It might be incomplete or have errors.
@@ -82,19 +82,14 @@ const { Content, headings } = await post.render();
         >
           <div class="prose max-w-none pb-8 pt-10 dark:prose-invert">
             <slot />
-            <Content />
+            <!-- <Content /> -->
           </div>
         </div>
-        <!--{siteMetadata.comments && (-->
-        <!--        <div class="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300" id="comment">-->
-        <!--            <Comments slug={slug} />-->
-        <!--        </div>-->
-        <!--)}-->
         <footer>
           <div
             class="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base"
           >
-            {
+            <!-- {
               prev && (
                 <div class="pt-4 xl:pt-8">
                   <Link
@@ -119,7 +114,7 @@ const { Content, headings } = await post.render();
                   </Link>
                 </div>
               )
-            }
+            } -->
           </div>
         </footer>
       </div>

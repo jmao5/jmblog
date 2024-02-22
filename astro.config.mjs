@@ -7,7 +7,7 @@ import { SITE_METADATA } from "./src/consts.ts";
 import metaTags from "astro-meta-tags";
 
 import robotsTxt from "astro-robots-txt";
-import cloudflare from "@astrojs/cloudflare";
+// import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,6 +20,6 @@ export default defineConfig({
     metaTags(),
     robotsTxt(),
   ],
-  // output: "server",
+  output: "server",
   // adapter: cloudflare(),
 });
